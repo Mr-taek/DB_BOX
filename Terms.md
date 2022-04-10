@@ -78,8 +78,12 @@
       LIKE '_K%J';
       -- 제일 앞에 아무 문자가 오고 K, 그 다음 J가 나올 때까지 기달리기
       ```
-    3. 응용, NOT 사용이 가능하다. NOT LIKE
-    4. _ 나 %가 데이터 일부일 경우
+    3. 기본사용 3 : 특정 WORD포함
+      ```
+      WHERE COL LIKE '%WORD%';
+      ```
+    4. 응용, NOT 사용이 가능하다. NOT LIKE
+    5. _ 나 %가 데이터 일부일 경우
       ```
       WHERE COL LIKE 'K\_\%K' ESCAPE '\';
       ```
@@ -128,12 +132,18 @@
 
 5. WHERE : SELECT 문으로 데이터를 조회할 때 "특정 조건" 기준으로 원하는 행을 출력하는 데 사용한다.
   - 사용법
-    - WHERE 1_[LOGIC OPERATOR]2_ : 1_열에서 2_의 조건식을 만족하는 것만 출력.
-    - 조건식의 제한은 없다
+    1. WHERE 1_[LOGIC OPERATOR]2_ : 1_열에서 2_의 조건식을 만족하는 것만 출력.
+    2. 조건식의 제한은 없다
       ```
       SELECT * FROM TABLE WHERE [CONDITIONALeXPRESS] AND/OR [2] AND/OR [3] ...
       ```
-
+    3. 한 번 WHERE 사용 후엔 다른 COL을 사용하기 위해서 WHERE을 다시 사용하는 건 불가능하며 그냥 한 번만 사용해주면 된다.
+      ```
+      SELECT ENAME,EMPNO,SAL,DEPTNO FROM EMP WHERE (ENAME LIKE '%E%' AND DEPTNO=30 AND SAL NOT BETWEEN 1000 AND 2000) AND ***WHERE*** SAL<2000;
+      -- 해당 ***WHERE***는 삭제 해야함.
+      -- 괄호는 사실 없어도 된다.
+      -- 프로그래밍 처리는 왼쪽부터 오른쪽으로 차근차근 진행된다.
+      ```
     - EX 1) : 한 개의 조건식 사용
       ```
       SELECT * FROM TABLE WHERE AGE>25 OR/AND GENDER="MAN"
